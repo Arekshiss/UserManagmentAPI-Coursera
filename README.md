@@ -1,56 +1,193 @@
-# <span style="color:#FF0000">**My App**</span> [![Build Status](https://travis-ci.org/username/myapp.svg?branch=master)](https://travis-ci.org/username/myapp)
+# 🚀 User Management API
 
-**My App** is a web application built with [ASP.NET Core](https://dotnet.microsoft.com/en-us/apps/aspnet) and [MongoDB](https://www.mongodb.com/). The application allows users to register and login, and it stores user data in a MongoDB database.
+A clean and modular ASP.NET Core Web API for managing users, authentication, and secure access. Built with MongoDB, custom middleware, and token-based validation.
 
-## Features
+---
 
-- **User Registration**: Users can register with a unique username and password.
-- **User Login**: Users can login with their username and password.
-- **Data Storage**: User data is stored in a MongoDB database.
-- **Token-Based Authentication**: Users receive a JSON Web Token (JWT) upon successful login, which can be used to authenticate subsequent requests.
+## 📁 Project Structure
+├── connection/                 # MongoDB connection setup │   └── db.cs ├── Controllers/               # API endpoints │   ├── AuthController.cs │   └── UserController.cs ├── Helpers/                   # Utility classes │   └── JWTHelper.cs ├── Hooks/                     # Custom validation logic │   └── CustomValidationResponse.cs ├── Middlewares/              # Custom middleware components │   ├── ExceptionHandlingMiddleware.cs │   ├── RequestLoggingMiddleware.cs │   └── TokenValidationMiddleware.cs ├── Models/                    # Data models and DTOs │   ├── LoginDto.cs │   ├── MongoDbSettings.cs │   └── User.cs ├── Program.cs                 # App entry point ├── appsettings.json           # Main configuration ├── appsettings.Development.json ├── .gitignore
 
-## Requirements
+---
 
-- .NET 9 or later
-- MongoDB 6 or later
+## ⚙️ Features
 
-## Installation
+- ✅ **User Authentication** with JWT
+- 🔐 **Token Validation Middleware** for secure access
+- 📊 **Request Logging Middleware** for observability
+- 🛡️ **Exception Handling Middleware** for consistent error responses
+- 🧾 **Custom Model Validation** with clean error formatting
+- 🗃️ **MongoDB Integration** for persistent storage
+- 🧪 **Swagger UI** for interactive API testing
 
-1. Clone the repository: `git clone https://github.com/username/myapp.git`
-2. Change into the project directory: `cd myapp`
-3. Restore the NuGet packages: `dotnet restore`
-4. Run the application: `dotnet run`
+---
 
-## Configuration
+## 🧰 Setup Instructions
 
-The application uses the following environment variables:
+### 1. Clone the repository
 
-- `MONGO_DB_URI`: The URI of the MongoDB database.
-- `JWT_SECRET`: The secret key used to sign the JSON Web Tokens.
+```bash
+git clone https://github.com/your-username/UserManagementAPI.git
+cd UserManagementAPI
 
-You can set these environment variables using the following commands:
 
-- `export MONGO_DB_URI="mongodb://localhost:27017"`
-- `export JWT_SECRET="my_secret_key"`
+2. Install dependencies
+Make sure you have .NET SDK and MongoDB installed.
+dotnet restore
 
-## Usage
 
-- Open a web browser and navigate to `http://localhost:5000`
-- Register a new user by submitting the registration form.
-- Login with the registered user credentials.
-- The user data will be stored in the MongoDB database.
-- The user will receive a JSON Web Token upon successful login, which can be used to authenticate subsequent requests.
+3. Configure MongoDB
+Update your appsettings.json:
+"MongoDbSettings": {
+  "Connection": "mongodb://localhost:27017",
+  "DatabaseName": "UserManagement"
+}
 
-## Testing
 
-The application uses [xUnit](https://xunit.github.io/) for unit testing. To run the tests, use the following command:
+4. Run the application
+dotnet run
 
-- `dotnet test`
 
-## Contributing
+Visit https://localhost:5001/swagger to explore the API.
 
-Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request. Please make sure to add tests for any new functionality.
+🔐 Authentication
+This API uses a simple token-based authentication system. Add your token to the Authorization header:
+Authorization: Bearer your-token-here
 
-## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Public endpoints:
+- GET /
+- GET /public/info
+- POST /api/auth/login
+Protected endpoints require a valid token.
+
+🧪 Testing Endpoints
+Use the included requests.http file or Swagger UI to test:
+- GET /api/user
+- POST /api/auth/login
+- POST /api/user
+- PUT /api/user/{id}
+- DELETE /api/user/{id}
+
+🤝 Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
+
+📜 License
+This project is licensed under the MIT License.
+
+Made with ❤️ by アレクシス
+
+---
+
+Let me know if you want to include badges, Docker setup, or CI/CD instructions—I can help you expand this into a full developer-friendly doc.
+
+
+
+
+---
+
+## ⚙️ Features
+
+- ✅ **User Authentication** with JWT
+- 🔐 **Token Validation Middleware** for secure access
+- 📊 **Request Logging Middleware** for observability
+- 🛡️ **Exception Handling Middleware** for consistent error responses
+- 🧾 **Custom Model Validation** with clean error formatting
+- 🗃️ **MongoDB Integration** for persistent storage
+- 🧪 **Swagger UI** for interactive API testing
+
+---
+
+## 🧰 Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/UserManagementAPI.git
+cd UserManagementAPI
+
+Absolutely, アレクシス! Based on your project structure—which includes controllers, middlewares, helpers, MongoDB integration, and custom validation—here’s a polished and friendly README.md template that’s informative and easy to read:
+
+# 🚀 User Management API
+
+A clean and modular ASP.NET Core Web API for managing users, authentication, and secure access. Built with MongoDB, custom middleware, and token-based validation.
+
+---
+
+## 📁 Project Structure
+
+
+├── connection/                 # MongoDB connection setup │   └── db.cs ├── Controllers/               # API endpoints │   ├── AuthController.cs │   └── UserController.cs ├── Helpers/                   # Utility classes │   └── JWTHelper.cs ├── Hooks/                     # Custom validation logic │   └── CustomValidationResponse.cs ├── Middlewares/              # Custom middleware components │   ├── ExceptionHandlingMiddleware.cs │   ├── RequestLoggingMiddleware.cs │   └── TokenValidationMiddleware.cs ├── Models/                    # Data models and DTOs │   ├── LoginDto.cs │   ├── MongoDbSettings.cs │   └── User.cs ├── Program.cs                 # App entry point ├── appsettings.json           # Main configuration ├── appsettings.Development.json ├── .gitignore
+
+---
+
+## ⚙️ Features
+
+- ✅ **User Authentication** with JWT
+- 🔐 **Token Validation Middleware** for secure access
+- 📊 **Request Logging Middleware** for observability
+- 🛡️ **Exception Handling Middleware** for consistent error responses
+- 🧾 **Custom Model Validation** with clean error formatting
+- 🗃️ **MongoDB Integration** for persistent storage
+- 🧪 **Swagger UI** for interactive API testing
+
+---
+
+## 🧰 Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/UserManagementAPI.git
+cd UserManagementAPI
+
+
+2. Install dependencies
+Make sure you have .NET SDK and MongoDB installed.
+
+dotnet restore
+
+3. Configure MongoDB
+Update your appsettings.json:
+
+"MongoDbSettings": {
+  "Connection": "mongodb://localhost:27017",
+  "DatabaseName": "UserManagement"
+}
+
+4. Run the application
+
+dotnet run
+
+Visit https://localhost:5280/swagger to explore the API.
+
+🔐 Authentication
+This API uses a simple token-based authentication system. Add your token to the appsettings.json:
+
+"Jwt": {
+    "Secret": "your-super-secret-keysuper-long-secret-key-at-least-32-characters!"
+}
+
+Public endpoints:
+- GET /
+- GET /public/info
+- POST /api/auth/login
+Protected endpoints require a valid token.
+
+
+🧪 Testing Endpoints
+Use the included requests.http file or Swagger UI to test:
+- GET /api/user
+- POST /api/auth/login
+- POST /api/user
+- PUT /api/user/{id}
+- DELETE /api/user/{id}
+
+
+🤝 Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
+
+
+📜 License
+This project is licensed under the MIT License.
+
+
