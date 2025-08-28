@@ -1,6 +1,6 @@
 # 🟦 .NET Web API Project
 
-A clean and modular **.NET 6/7 Web API** project with authentication, middlewares, MongoDB integration, and reusable components.  
+A clean and modular **.NET Web API** project with authentication, middlewares, MongoDB integration, and reusable components.  
 This project is designed to be a starting point for building scalable backend applications.
 
 ---
