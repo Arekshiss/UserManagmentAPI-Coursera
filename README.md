@@ -5,7 +5,27 @@ A clean and modular ASP.NET Core Web API for managing users, authentication, and
 ---
 
 ## 📁 Project Structure
-├── connection/                 # MongoDB connection setup │   └── db.cs ├── Controllers/               # API endpoints │   ├── AuthController.cs │   └── UserController.cs ├── Helpers/                   # Utility classes │   └── JWTHelper.cs ├── Hooks/                     # Custom validation logic │   └── CustomValidationResponse.cs ├── Middlewares/              # Custom middleware components │   ├── ExceptionHandlingMiddleware.cs │   ├── RequestLoggingMiddleware.cs │   └── TokenValidationMiddleware.cs ├── Models/                    # Data models and DTOs │   ├── LoginDto.cs │   ├── MongoDbSettings.cs │   └── User.cs ├── Program.cs                 # App entry point ├── appsettings.json           # Main configuration ├── appsettings.Development.json ├── .gitignore
+├── connection/                 # MongoDB connection setup 
+│   └── db.cs 
+├── Controllers/               # API endpoints 
+│   ├── AuthController.cs 
+│   └── UserController.cs 
+├── Helpers/                   # Utility classes 
+│   └── JWTHelper.cs 
+├── Hooks/                     # Custom validation logic 
+│   └── CustomValidationResponse.cs 
+├── Middlewares/              # Custom middleware components 
+│   ├── ExceptionHandlingMiddleware.cs 
+│   ├── RequestLoggingMiddleware.cs 
+│   └── TokenValidationMiddleware.cs 
+├── Models/                    # Data models and DTOs 
+│   ├── LoginDto.cs 
+│   ├── MongoDbSettings.cs 
+│   └── User.cs 
+├── Program.cs                 # App entry point 
+├── appsettings.json           # Main configuration 
+├── appsettings.Development.json 
+├── .gitignore
 
 ---
 
