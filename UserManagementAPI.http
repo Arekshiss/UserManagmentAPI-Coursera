@@ -1,6 +1,6 @@
 @UserManagementAPI_HostAddress = http://localhost:5280
 
-###
+### Login and get JWT token
 POST {{UserManagementAPI_HostAddress}}/api/auth/login
 Content-Type: application/json
 
@@ -11,20 +11,22 @@ Content-Type: application/json
     "Password": "password123"
 }
 
-###
+### Get API status
 GET {{UserManagementAPI_HostAddress}}/
 Accept: application/json
 
-###
+### Get paginated users
 GET {{UserManagementAPI_HostAddress}}/api/user/1/10
 Accept: application/json
 Authorization: Bearer my-super-secret-token
 
-###
+### Get user by ID
 GET {{UserManagementAPI_HostAddress}}/api/user/5
 Accept: application/json
 Authorization: Bearer my-super-secret-token
-###
+
+
+### Create new user
 POST {{UserManagementAPI_HostAddress}}/api/user
 Content-Type: application/json
 
@@ -33,7 +35,7 @@ Content-Type: application/json
     "Email": "user12@gmail.com"
 }
 
-###
+### 
 PUT {{UserManagementAPI_HostAddress}}/api/user/5
 Content-Type: application/json
 
@@ -43,5 +45,5 @@ Content-Type: application/json
     "Email": "update@gmail.com"
 }
 
-###
+### 
 DELETE {{UserManagementAPI_HostAddress}}/api/user/5

@@ -11,3 +11,5 @@ public class LoginRequest
     [Required(ErrorMessage = "Email is required")]
     public string Email { get; set; } = string.Empty;
 }
+
+public class RegisterDto : LoginRequest { }

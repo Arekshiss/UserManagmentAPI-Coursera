@@ -9,14 +9,16 @@ namespace UserManagementAPI.Controllers;
 [Route("api/[controller]")]
 public class authController : ControllerBase
 {
-    private readonly string _validToken;
+    private readonly IConfiguration _config;
+
     private readonly MongoDbService _mongoService;
 
     public authController(MongoDbService mongoService, IConfiguration configuration)
     {
         _mongoService = mongoService;
-        _validToken = configuration.GetValue<string>("Auth:Token") ?? "default-token";
-        Console.WriteLine("AuthController initialized with token: " + _validToken);
+        _config = configuration;
+
+        Console.WriteLine("AuthController initialized with token: " + _config["Jwt:Secret"]);
     }
 
     [AllowAnonymous]
@@ -27,8 +29,17 @@ public class authController : ControllerBase
             .Find(u => u.Username == loginRequest.Username && u.Email == loginRequest.Email)
             .FirstOrDefaultAsync();
 
-        if (user == null) return Unauthorized("Invalid username or password.");
-        return Ok(new { token = _validToken });
+        // On success, generate JWT
+        var token = JwtHelper.GenerateToken(loginRequest.Username, _config);
+        return Ok(new { token });
+    }
+
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public IActionResult Register(RegisterDto register)
+    {
+        // TODO: Save new user to MongoDB
+        return Ok(new { message = "User registered successfully" });
     }
 
 

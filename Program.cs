@@ -7,75 +7,88 @@ using MyApp.Api.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // ------------------------------
-// 🔧 Services Configuration
+// Services
 // ------------------------------
-
-// Add controllers
 builder.Services.AddControllers();
 
-// Custom model validation response
+// Custom validation response
 builder.Services.ConfigureCustomValidationResponse();
 
-// Swagger/OpenAPI
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// MongoDB settings binding
+// MongoDB settings
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbSettings"));
-
-// MongoDB service
 builder.Services.AddSingleton<MongoDbService>();
 
+// JWT Authentication
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = JwtHelper.GetTokenValidationParameters(builder.Configuration);
+    });
+
+builder.Services.AddAuthorization();
+
 // ------------------------------
-// 🏗 Build the app
+// Build app
 // ------------------------------
 var app = builder.Build();
 
 // ------------------------------
-// Middleware Pipeline
+// Middleware pipeline
 // ------------------------------
 
-// 1️⃣ Exception handling first
+// 1️⃣ Exception handling
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // 2️⃣ HTTPS redirection
 app.UseHttpsRedirection();
 
-// 3️⃣ Request logging
-app.UseMiddleware<RequestLoggingMiddleware>();
-
-// 4️⃣ Routing
-app.UseRouting();
-
-// 5️⃣ Token validation before authorization
-var validToken = builder.Configuration["Auth:Token"] ?? "my-super-secret-token";
-var publicPaths = new[]
-{
-    "/",             // base route
-    "/api/auth/login",
-    "/swagger",
-    "/swagger/index.html",
-    "/swagger/v1/swagger.json"
-};
-app.UseMiddleware<TokenValidationMiddleware>(validToken, publicPaths);
-
-// 6️⃣ Authorization
-app.UseAuthorization();
-
-// 7️⃣ Swagger (development only)
+// 3️⃣ Swagger (development only)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// 4️⃣ Request logging
+app.UseMiddleware<RequestLoggingMiddleware>();
+
+// 5️⃣ Routing
+app.UseRouting();
+
+// 6️⃣ Authentication & Authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
+// 7️⃣ Token validation (with public routes)
+var publicPaths = new[]
+{
+    "/", 
+    "/api/auth/login",
+    "/api/auth/register",
+    "/swagger",
+    "/swagger/index.html",
+    "/swagger/v1/swagger.json",
+    "/public/info"
+};
+
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices.GetRequiredService<ILogger<TokenValidationMiddleware>>();
+    var middleware = new TokenValidationMiddleware(next, logger, publicPaths);
+    await middleware.InvokeAsync(context);
+});
+
 // 8️⃣ Map endpoints
 app.MapGet("/", () => "User Management API is running.");
-app.MapGet("/public/info", () => "Public Info"); // Public endpoint
+app.MapGet("/public/info", () => "Public Info");
 app.MapControllers();
 
 // ------------------------------
-// Run the app
+// Run app
 // ------------------------------
 app.Run();
