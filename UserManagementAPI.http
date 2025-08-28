@@ -1,0 +1,47 @@
+@UserManagementAPI_HostAddress = http://localhost:5280
+
+###
+POST {{UserManagementAPI_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+
+{
+    "Username": "arekshis",
+    "Email": "arekshis@gmail.com",
+    "Password": "password123"
+}
+
+###
+GET {{UserManagementAPI_HostAddress}}/
+Accept: application/json
+
+###
+GET {{UserManagementAPI_HostAddress}}/api/user/1/10
+Accept: application/json
+Authorization: Bearer my-super-secret-token
+
+###
+GET {{UserManagementAPI_HostAddress}}/api/user/5
+Accept: application/json
+Authorization: Bearer my-super-secret-token
+###
+POST {{UserManagementAPI_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+    "Username": "user12",
+    "Email": "user12@gmail.com"
+}
+
+###
+PUT {{UserManagementAPI_HostAddress}}/api/user/5
+Content-Type: application/json
+
+{
+    "Id": 10,
+    "Username": "Update User",
+    "Email": "update@gmail.com"
+}
+
+###
+DELETE {{UserManagementAPI_HostAddress}}/api/user/5
