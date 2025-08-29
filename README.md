@@ -42,7 +42,7 @@ This project is designed to be a starting point for building scalable backend ap
 ⚙️ Installation
 1️⃣ Prerequisites
 
-.NET 6 or later
+.NET 9
 
 MongoDB
  (local or cloud - MongoDB Atlas)
